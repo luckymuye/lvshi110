@@ -1,0 +1,103 @@
+{template "content","header"}
+<!--main-->
+<div class="main">
+	<div class="container">
+		<div class="panel panel-primary lsjj">
+			<div class="panel-heading">
+				<h2 class="panel-title model-title">留言列表</h2>
+			</div>
+			<div class="panel-body">
+			 <button class="btn btn-info" data-toggle="modal" data-target="#myModal">我要留言</button>
+			 <hr>
+				<div class="showbox">
+				<table class="table table-hover">
+				<?php 
+					if (is_array($infos)) {
+						foreach ($infos as $info) {
+								
+				?>
+				 	<tr>
+				 		<td>
+				 			<div class="fn" data-toggle="tooltip" data-placement="left" title="">
+                                <div class="face"><a>{$info[username]}：</a></div>
+                                <p>{$info[lycontent]}</p>
+                                <p class="text-right">{date('Y年m月d日 H:m',$info[lydate])}</p>
+                                <div class="alert alert-success" role="alert">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                    <span class="sr-only">提示</span>
+                                    陈金兰律师回复：如交通事故中本人不负主要，全部责任的属于交通事故中因工受伤，应该按照工伤保险条例的规定处理。
+                                </div>
+                            </div>
+				 		</td>
+				 	</tr>
+				<?php 
+						}
+					}
+				?>
+				</table>
+				</div>
+
+				<!-- 模态框 start-->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			   <div class="modal-dialog">
+			      <div class="modal-content">
+			         <div class="modal-header">
+			            <button type="button" class="close" 
+			               data-dismiss="modal" aria-hidden="true">
+			                  &times;
+			            </button>
+			            <h4 class="modal-title" id="myModalLabel">留言板</h4>
+			         </div>
+			         <div class="modal-body">
+			         	
+			 			<form action="{APP_PATH}index.php?m=liuyan&c=index&a=ly&siteid={SITEID}" method="post" name="lyban" id="lyban"  role="form">
+						   <div class="form-group">
+							    <label class="sr-only" for="biaoti">用户名</label>
+							    <div class="input-group">
+							      <div class="input-group-addon">&nbsp;&nbsp;&nbsp;用户名</div>
+							      <input type="text" class="form-control" id="biaoti" name="ly[username]" value="{$_nickname}" placeholder="请输入用户名" >
+							      <input type="hidden"  name="mnickname" value="{$_nickname}" >
+							    </div>
+							</div>
+							<div class="form-group">
+							    <label class="sr-only" for="contact">联系方式</label>
+							    <div class="input-group">
+							      <div class="input-group-addon">联系方式</div>
+							      <input type="text" class="form-control" id="contact" name="ly[contact]" placeholder="请输入QQ或者电话联系方式，仅限律师可见" >
+							    </div>
+							</div>
+
+							<div class="form-group">
+							    <label class="sr-only" for="contact">内容</label>
+							    <div class="input-group">
+							      <div class="input-group-addon">内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容</div>
+							       <textarea class="form-control" name="ly[lycontent]"  placeholder="请描述清楚需要咨询的问题^-^" cols="50" rows="5"></textarea> 
+							    </div>
+							</div>
+							<div class="form-group">
+								<p>{form::checkcode('code_img','4','14',110,30)}&nbsp;&nbsp;&nbsp;点击可刷新&nbsp;&nbsp;&nbsp;<input type="text"  placeholder="验证码" name="code" id="code" style="width:110px;margin-right: 20px;"></p>
+								<p><small style="color: red;">注意：留言仅表达个人看法，并不表明本站同意或者证实其描述。</small></p>
+							</div>
+  							 
+	                		 
+	                	</form>
+			         </div>
+			         <div class="modal-footer">
+			         	<div class="mytouxiang center pull-left"><img src="{$_userpic}" class="img-circle" style="border: solid 1px white;"></div>
+			            <button type="button" class="btn btn-default" 
+			               data-dismiss="modal">关闭
+			            </button>
+			            <button type="button" class="btn btn-primary" id="lysubmit">
+			               提交留言
+			            </button>
+			         </div>
+			      </div><!-- /.modal-content -->
+			</div>
+	  	</div>   
+		<!-- 模态框 end-->
+
+			</div>
+		</div><!-- .panel panel-default 结束 -->
+	</div> <!-- .container end -->
+</div><!-- .main end -->
+{template "content","footer"}

@@ -1,0 +1,90 @@
+{template "content","header"}
+<!--main-->
+<div class="main">
+	<div class="container">
+		<div class="panel panel-primary lsjj">
+			<div class="panel-heading">
+				<h2 class="panel-title model-title">{$CATEGORYS[$catid][catname]}</h2>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-8">
+	                     <table class="table table-striped">
+							<tr><td colspan="2">您的位置：<a href="{siteurl($siteid)}">首页</a><span> > </span>{catpos($catid)} 列表</td></tr>
+							<tr class="success"><td colspan="2"></td></tr>
+							{pc:content action="lists" catid="$catid" num="25" order="id DESC" page="$page"}
+							        
+							{loop $data $r}
+								<tr><td><span class="glyphicon glyphicon-play"></span>&nbsp;<a href="{$r[url]}" target="_blank" title="{$r['title']}"{title_style($r[style])}>{str_cut($r['title'],51)}</a></td><td class="td-nowrap"><span class="glyphicon glyphicon-time"></span>&nbsp;{date('m-d',$r[inputtime])}</td></tr>
+								{if $n%6==0}<tr class="success"><td colspan="2"></td></tr>{/if}
+							{/loop}
+							        <tr><td colspan="2"><div id="pages" class="text-c">{$pages}</div></td></tr>
+							{/pc}
+	                     </table>
+					</div><!-- .col-md-8 end -->
+				
+				
+					<!-- 左边内容展示 -->
+					<div class="col-md-4">
+					<!--本期赣州知名律师推荐 start  -->
+						<div class="panel panel-default">
+						   <div class="panel-heading">
+						      <h3 class="panel-title">
+						      <span class="glyphicon glyphicon-plus"></span>
+						         本期赣州知名律师推荐
+						      </h3>
+						   </div>
+						   <div class="panel-body">
+						   <img class="img-thumbnail center-block" width="70%" src="{IMG_PATH}badguy/resource/ganzhoulvshi.jpg" alt="赣州知名律师 赣州律师 陈金兰律师">
+						  	 <blockquote><p class="small">陈金兰律师法学理论功底深厚，凭借过硬的法律素养于2013年9月参加国家司法考试（一次性）取得法律职业资格。陈金兰律师从事律师工作后办理及参办的案件有百余件，其中刑事案件100余件，合同（包括民间借贷）纠纷案件20余件，人身损害侵权案件10余件，离婚案件9件，其他案件10余件。</p></blockquote>
+						   </div>
+						   <ul class="list-group">
+							  	<li class="list-group-item text-center"><strong>陈金兰律师</strong>
+							  	&nbsp;&nbsp;<img src="{IMG_PATH}badguy/resource/wxlogo.png" alt="" width="25" height="25" class="weixinlogo">
+								<div class="out" ><img src="{IMG_PATH}badguy/resource/weixinlogo-addon.jpg" alt="扫一扫 加我微信"  class="weixinlogo-addon" ></div>
+							  	</li>
+							  	<li class="list-group-item text-center"><strong>中华全国律师协会会员、赣州市律师协会会员</strong></li>
+							  	<li class="list-group-item text-center"><strong>执业机构：</strong>江西君实律师事务所</li>
+							  	<li class="list-group-item text-center"><strong>执业证号：</strong>13607201611931990<font style="color:red;font-weight: bolder;">（A证+全国通用）</font></li>
+							  	<li class="list-group-item text-center">
+							        <strong>手机：</strong>18179711204 &nbsp;&nbsp;&nbsp;&nbsp;
+									 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3070863734&site=qq&menu=yes">
+									 	<img border="0" src="http://wpa.qq.com/pa?p=2:3070863734:51" alt="点击这里给我发消息" title="点击这里给我发消息" />
+									 </a>
+							  	</li>
+							</ul>
+						</div><!--本期赣州知名律师推荐 结束  -->
+						
+						<!-- 频道总排行 start -->
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+						      <span class="glyphicon glyphicon-plus"></span>频道总排行</div>
+						  <table class="table">
+						     {pc:content action="hits" catid="$catid" num="10" order="views DESC" cache="3600"}
+									{loop $data $r}
+										<tr><td><a href="{$r[url]}" target="_blank">{$r[title]}</a></td></tr>
+									{/loop}
+				             {/pc}
+						   </table>
+						</div> <!-- 频道总排行 结束 -->
+						
+						<!-- 频道本月排行 start -->
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+						      <span class="glyphicon glyphicon-plus"></span>频道本月排行</div>
+						  <table class="table">
+						     {pc:content action="hits" catid="$catid" num="8" order="monthviews DESC" cache="3600"}
+									{loop $data $r}  
+										<tr><td><span class="badge">{number_format($r[monthviews])}</span>&nbsp;&nbsp;<a href="{$r[url]}"{title_style($r[style])} class="title" title="{$r[title]}">{str_cut($r[title],56,'...')}</a></td></tr>
+									{/loop}
+				             {/pc}
+						   </table>
+						</div> <!-- 频道本月排行 结束 -->
+					</div><!-- .col-md-4 end -->
+				
+				</div> <!--.row end -->
+			</div>
+		</div><!-- .panel panel-default 结束 -->
+	</div> <!-- .container end -->
+</div><!-- .main end -->
+{template "content","footer"}
